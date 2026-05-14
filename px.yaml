@@ -34,7 +34,7 @@ resources:
 # Use `persistent: true` to keep the bucket after the cluster is torn down.
 file_mounts:
   /dataflow_demo_data:
-    source: gs://dataflow_demo_data
+    source: gs://dataflow-demo-central-maps
     store: gcs
     persistent: true
 
