@@ -10,7 +10,7 @@ num_nodes: 2
 # PX picks the cheapest instance matching these constraints.
 resources:
   # Cloud provider (currently only `gcp` is supported)
-  infra: gcp/us-east1-d
+  infra: gcp/us-central1-a
   # vCPUs per node
   cpus: 2
   memory: 4
