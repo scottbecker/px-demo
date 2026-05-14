@@ -1,0 +1,7 @@
+[project]
+name = "px-demo"
+version = "0.1.0"
+dependencies = [
+    "fastavro",
+    "apache-beam[gcp]",
+]

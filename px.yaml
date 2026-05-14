@@ -1,0 +1,59 @@
+---
+# PX uses a subset of the SkyPilot task YAML spec.
+# Full reference: https://docs.skypilot.co/en/stable/reference/yaml-spec.html
+
+# Number of cloud nodes to provision. The first node is the head node
+# and the rest are workers (e.g. 2 = 1 head + 1 worker).
+num_nodes: 2
+
+# Resource constraints for instance selection.
+# PX picks the cheapest instance matching these constraints.
+resources:
+  # Cloud provider (currently only `gcp` is supported)
+  infra: gcp/us-east1
+  # vCPUs per node
+  cpus: 2
+  memory: 4
+  # Attached disk size in GB
+  disk_size: 10
+  # Disk speed tier: low, medium, high, or ultra (default: medium).
+  # Use `best` to auto-pick the highest tier the cloud supports.
+  disk_tier: low
+  # Use spot/preemptible instances (cheaper, but can be reclaimed)
+  use_spot: true
+  # Ports to open on each node. 8020 is required for the PX supervisor.
+  ports:
+    - 8020
+
+# Environment variables accessible in the setup and run scripts.
+# envs:
+#   MY_BUCKET: my-data-bucket
+
+# Mount cloud storage buckets on each node. Supports S3, GCS, and Azure Blob.
+# Each entry maps a remote mount path to a bucket source and store type.
+# Use `persistent: true` to keep the bucket after the cluster is torn down.
+file_mounts:
+  /dataflow_demo_data:
+    source: gs://dataflow_demo_data
+    store: gcs
+    persistent: true
+
+# Local directory synced to each node. "." syncs the current project directory.
+# Jobs run from ~/sky_workdir on the node. Reference your files relative to that.
+workdir: .
+
+# Bootstrap script run on each node after provisioning.
+# Runs once on first setup, and again on `px cluster sync --run-setup`.
+# Cannot be empty or null. Use `setup: "true"` for a no-op.
+# Example: install system dependencies
+# setup: |
+#   DEBIAN_FRONTEND=noninteractive sudo apt-get update
+#   DEBIAN_FRONTEND=noninteractive sudo apt-get install --no-install-recommends \
+#     --no-install-suggests -y \
+#     build-essential
+setup: |
+  echo "Begin setup."
+  python3 -m venv .venv
+  .venv/bin/pip install --upgrade pip
+  .venv/bin/pip install -r requirements.txt
+  echo "Setup complete."
