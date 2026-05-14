@@ -31,9 +31,9 @@ The project uses a `.venv` directory for isolation.
   ```bash
   python3 -m venv .venv
   source .venv/bin/activate
-  pip install -r requirements.txt
+  pip install .
   ```
-- **Remote (Cluster):** Managed via `px.yaml`. The `setup` step automatically creates the `.venv` and installs requirements on every node.
+- **Remote (Cluster):** Managed via `px.yaml`. The `setup` step automatically creates the `.venv` and installs dependencies from `pyproject.toml`.
 
 ## Running the Project
 
@@ -59,7 +59,7 @@ bash bin/run_cluster.sh [cluster_name]
 ## Key Files
 
 - `px.yaml`: Configuration for SkyPilot/PX (nodes, resources, setup).
-- `requirements.txt`: Python dependencies (keep this synced with `pyproject.toml`).
+- `pyproject.toml`: The source of truth for project metadata and dependencies.
 - `json_to_avro_px.py`: The core processing logic.
 - `bin/`: Shell scripts for orchestration.
 
