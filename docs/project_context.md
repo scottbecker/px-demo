@@ -43,6 +43,12 @@ Use `bin/run_px.sh`. It will attempt to process all logs found in `/dataflow_dem
 bash bin/run_px.sh
 ```
 
+### Generating Test Data
+You can generate additional test logs using the provided script. By default, it creates 5 files with 10 records each in the mount directory.
+```bash
+bash bin/generate_test_data.sh --num_files 10 --records_per_file 100
+```
+
 ### Cluster Execution
 Use `bin/run_cluster.sh`. 
 **Note:** This script expands the file glob **locally**. If your local mount is broken, the job submission will fail because it will send a literal `*` string to the cluster.
