@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration
-BUCKET_NAME="dataflow_demo_data"
+BUCKET_NAME="dataflow-demo-central-maps"
 MOUNT_POINT="/dataflow_demo_data"
 
 echo "Setting up GCS mount for bucket: $BUCKET_NAME at $MOUNT_POINT"
